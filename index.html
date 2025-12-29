@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>放置生活技能游戏</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧙 放置生活技能游戏</h1>
+
+<div class="panel">
+  <h2>📦 资源</h2>
+  <p>木头：<span id="wood">0</span></p>
+  <p>矿石：<span id="ore">0</span></p>
+</div>
+
+<div class="panel">
+  <h2>🛠 生活技能</h2>
+  <button onclick="chopWood()">🌲 砍树</button>
+  <button onclick="mineOre()">⛏ 挖矿</button>
+</div>
+
+<div class="panel">
+  <h2>⚒ 制造</h2>
+  <button onclick="craftSword()">制造铁剑（10木 + 10矿）</button>
+</div>
+
+<div class="panel">
+  <h2>👾 战斗</h2>
+  <button onclick="fightMonster()">刷怪</button>
+  <p id="battleLog"></p>
+</div>
+
+<div class="panel">
+  <h2>🎒 装备</h2>
+  <ul id="equipmentList"></ul>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
