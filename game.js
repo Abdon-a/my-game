@@ -15,6 +15,8 @@ const state = {
     equipment: {
       weapon: null,
       armor: null
+      monster: null
+
     }
   },
 
@@ -269,6 +271,58 @@ function craftSword() {
   save();
   render();
 }
+function spawnMonster() {
+  state.monster = {
+    name: "史莱姆",
+    hp: 30,
+    atk: 4
+  };
+  log("出现了一只史莱姆！");
+  render();
+}
+function attackMonster() {
+  const m = state.monster;
+  if (!m) return;
+
+  const stats = getPlayerStats();
+
+  // 玩家攻击
+  m.hp -= Math.max(1, stats.atk - 1);
+
+  // 怪物反击
+  state.player.hp -= Math.max(1, m.atk - stats.def);
+
+  log(`你攻击了 ${m.name}`);
+
+  if (m.hp <= 0) {
+    log(`你击败了 ${m.name}`);
+    dropLoot();
+    state.monster = null;
+  }
+
+  if (state.player.hp <= 0) {
+    alert("你倒下了！");
+    state.player.hp = state.player.maxHp;
+    state.monster = null;
+  }
+
+  save();
+  render();
+}
+function dropLoot() {
+  if (Math.random() < 0.5) {
+    const loot = {
+      name: "破旧护甲",
+      slot: "armor",
+      atk: 0,
+      def: Math.floor(Math.random() * 3) + 1
+    };
+    state.equipment.push(loot);
+    log("怪物掉落了一件装备！");
+  }
+}
+
+
 
 
 
