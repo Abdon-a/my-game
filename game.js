@@ -85,13 +85,31 @@ setInterval(autoGather, 5000);
  * 技能升级
  **********************/
 function upgradeWoodcutting() {
+  const cost = woodcutUpgradeCost();
+
+  if (state.wood < cost) {
+    alert(`木头不足，需要 ${cost}`);
+    return;
+  }
+
+  state.wood -= cost;
   state.skills.woodcutting.level++;
+
   save();
   render();
 }
 
 function upgradeMining() {
+  const cost = miningUpgradeCost();
+
+  if (state.ore < cost) {
+    alert(`矿石不足，需要 ${cost}`);
+    return;
+  }
+
+  state.ore -= cost;
   state.skills.mining.level++;
+
   save();
   render();
 }
@@ -212,6 +230,12 @@ function render() {
     state.skills.woodcutting.level;
   document.getElementById("miningLv").innerText =
     state.skills.mining.level;
+  
+  document.getElementById("woodCost").innerText =
+  woodcutUpgradeCost();
+document.getElementById("oreCost").innerText =
+  miningUpgradeCost();
+
 
   const stats = getPlayerStats();
   document.getElementById("hp").innerText =
@@ -228,9 +252,17 @@ function render() {
     list.appendChild(li);
   });
 }
+function woodcutUpgradeCost() {
+  return state.skills.woodcutting.level * 10;
+}
+
+function miningUpgradeCost() {
+  return state.skills.mining.level * 10;
+}
 
 /**********************
  * 启动
  **********************/
 load();
 render();
+
