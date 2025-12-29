@@ -1,62 +1,52 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <title>放置游戏</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>放置 RPG</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<h1>🧙 放置游戏</h1>
+<h1>🕹 放置 RPG</h1>
 
 <div class="panel">
-  <h2>📦 资源</h2>
-  <p>木头：<span id="wood">0</span></p>
-  <p>矿石：<span id="ore">0</span></p>
+  <h2>🌲 砍树 Lv <span id="woodcutLv">1</span></h2>
+  <button onclick="upgradeWoodcutting()">升级砍树</button>
 </div>
 
 <div class="panel">
-  <h2>🛠 生活技能</h2>
-
-  <p>🌲 砍树 Lv<span id="woodcutLv">1</span></p>
-  <button onclick="upgradeWoodcutting()">升级砍树</button>
-
-  <hr>
-
-  <p>⛏ 挖矿 Lv<span id="miningLv">1</span></p>
+  <h2>⛏ 挖矿 Lv <span id="miningLv">1</span></h2>
   <button onclick="upgradeMining()">升级挖矿</button>
 </div>
 
 <div class="panel">
-  <h2>⚒ 制造</h2>
+  <h2>📦 资源</h2>
+  木头：<span id="wood">0</span><br>
+  矿石：<span id="ore">0</span>
+</div>
+
+<div class="panel">
+  <h2>🛠 制造</h2>
   <button onclick="craftSword()">制造铁剑（10木 + 10矿）</button>
 </div>
 
 <div class="panel">
-  <h2>👾 战斗</h2>
-  <button onclick="fightMonster()">刷怪</button>
-  <button onclick="spawnMonster()">寻找怪物</button>
-  <button onclick="attackMonster()">攻击</button>
-  <p id="battleLog"></p>
+  <h2>🎒 装备（点击穿戴）</h2>
+  <ul id="equipmentList"></ul>
 </div>
 
 <div class="panel">
-  <h2>🎒 装备</h2>
-  <ul id="equipmentList"></ul>
-</div>
-  <div class="panel">
   <h2>👤 人物</h2>
-  <p>❤️ HP: <span id="hp"></span></p>
-  <p>⚔️ 攻击: <span id="atk"></span></p>
-  <p>🛡 防御: <span id="def"></span></p>
+  ❤️ HP：<span id="hp"></span><br>
+  ⚔️ 攻击：<span id="atk"></span><br>
+  🛡 防御：<span id="def"></span>
 </div>
+
+<div class="panel">
+  <h2>👾 战斗</h2>
+  <p id="battleLog">等待怪物出现…</p>
+</div>
+
 <script src="game.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
