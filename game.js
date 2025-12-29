@@ -169,7 +169,14 @@ document.getElementById("miningLv").innerText =
     li.innerText = formatItem(e);
     list.appendChild(li);
   });
+  const stats = getPlayerStats();
+document.getElementById("hp").innerText =
+  `${state.player.hp}/${state.player.maxHp}`;
+document.getElementById("atk").innerText = stats.atk;
+document.getElementById("def").innerText = stats.def;
 }
+
+
 
 // ================== 初始化 ==================
 
@@ -242,6 +249,27 @@ function equipItem(index) {
   save();
   render();
 }
+function craftSword() {
+  if (state.ore < 20) {
+    alert("矿石不足");
+    return;
+  }
+
+  state.ore -= 20;
+
+  const sword = {
+    name: "铁剑",
+    slot: "weapon",
+    atk: 5,
+    def: 0
+  };
+
+  state.equipment.push(sword);
+  log("你锻造了一把铁剑");
+  save();
+  render();
+}
+
 
 
 
