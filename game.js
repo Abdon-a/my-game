@@ -3,11 +3,18 @@ const state = {
   ore: 0,
 
   skills: {
-    woodcutting: {
-      level: 1
-    },
-    mining: {
-      level: 1
+    woodcutting: { level: 1 },
+    mining: { level: 1 }
+  },
+
+  player: {
+    baseAtk: 5,
+    baseDef: 2,
+    maxHp: 50,
+    hp: 50,
+    equipment: {
+      weapon: null,
+      armor: null
     }
   },
 
@@ -213,6 +220,29 @@ function autoGather() {
   render();
 }
 setInterval(autoGather, 5000);
+
+function getPlayerStats() {
+  let atk = state.player.baseAtk;
+  let def = state.player.baseDef;
+
+  const eq = state.player.equipment;
+
+  if (eq.weapon) atk += eq.weapon.atk;
+  if (eq.armor) def += eq.armor.def;
+
+  return { atk, def };
+}
+
+function equipItem(index) {
+  const item = state.equipment[index];
+  if (!item.slot) return;
+
+  state.player.equipment[item.slot] = item;
+  log(`装备了 ${item.name}`);
+  save();
+  render();
+}
+
 
 
 
