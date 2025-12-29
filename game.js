@@ -110,12 +110,37 @@ function log(msg) {
 // ================== 存档 ==================
 
 function save() {
-  localStorage.setItem("idleGameSave", JSON.stringify(state));
+  state.lastTime = Date.now(); // 
+  localStorage.setItem("idle-game", JSON.stringify(state));
 }
 
 function load() {
-  const save = localStorage.getItem("idleGameSave");
-  if (save) Object.assign(state, JSON.parse(save));
+  const data = localStorage.getItem("idle-game");
+  if (!data) return;
+
+  const saved = JSON.parse(data);
+
+  // === 离线收益计算 ===
+  if (saved.lastTime) {
+    const now = Date.now();
+    const diff = Math.floor((now - saved.lastTime) / 1000); // 秒
+
+    const woodGain =
+      diff * saved.skills.woodcutting.level / 5;
+    const oreGain =
+      diff * saved.skills.mining.level / 5;
+
+    saved.wood += Math.floor(woodGain);
+    saved.ore += Math.floor(oreGain);
+
+    alert(
+      `你离线了 ${diff} 秒\n` +
+      `获得木头 ${Math.floor(woodGain)}\n` +
+      `获得矿石 ${Math.floor(oreGain)}`
+    );
+  }
+
+  Object.assign(state, saved);
 }
 
 // ================== 渲染 ==================
@@ -174,3 +199,18 @@ function upgradeMining() {
   save();
   render();
 }
+function autoGather() {
+  // 砍树
+  const woodLv = state.skills.woodcutting.level;
+  state.wood += woodLv;
+
+  // 挖矿
+  const oreLv = state.skills.mining.level;
+  state.ore += oreLv;
+
+  log(`自动采集：木头 +${woodLv}，矿石 +${oreLv}`);
+  save();
+  render();
+}
+setInterval(autoGather, 5000);
+
